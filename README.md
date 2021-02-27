@@ -1,9 +1,7 @@
 json-to-struct
 ======
 
-json-to-struct attempts to generate go struct definitions from json documents
-
-[Online Version Here](https://tmc.github.io/json-to-struct/)
+json-to-struct attempts to generate go struct definitions from json documents, modified from [json-to-struct](github.com/tmc/json-to-struct) to work better as a windows cmd app. 
 
 Example
 ----------
@@ -48,15 +46,18 @@ type User struct {
 Installation
 ------------
 
-```sh
-$ go get github.com/tmc/json-to-struct
+```cmd
+$ go get github.com/ansible42/json-to-struct
 ```
 
 Related Work
 ------------
 
 github.com/ChimeraCoder/gojson
+
 github.com/str1ngs/jflect 
+
+github.com/tmc/json-to-struct
 
 License 
 ----------

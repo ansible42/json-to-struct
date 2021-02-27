@@ -1,4 +1,4 @@
-module github.com/tmc/json-to-struct
+module github.com/ansible/json-to-struct
 
 go 1.14
 

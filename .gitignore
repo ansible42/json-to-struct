@@ -6,3 +6,5 @@
 build/
 conf.go
 gojson
+.vscode/*
+*.exe

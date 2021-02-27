@@ -49,40 +49,22 @@ import (
 	"flag"
 	"fmt"
 	"os"
-)
-
-var (
-	flagName      = flag.String("name", "Foo", "the name of the struct")
-	flagPkg       = flag.String("pkg", "main", "the name of the package for the generated code")
-	flagOmitEmpty = flag.Bool("omitempty", true, "if true, emits struct field tags with 'omitempty'")
+	"strings"
 )
 
 func main() {
+
 	flag.Parse()
-
-	if isInteractive() {
-		flag.Usage()
-		fmt.Fprintln(os.Stderr, "Expects input on stdin")
-		os.Exit(1)
-	}
-
+	var flagOmitEmpty bool
+	flag.BoolVar(&flagOmitEmpty, "omitempty", false, "Omits empty variabless")
 	cfg := &Config{}
 	*cfg = DefaultConfig
-	cfg.OmitEmpty = *flagOmitEmpty
-
-	if output, err := generate(os.Stdin, *flagName, *flagPkg, cfg); err != nil {
+	cfg.OmitEmpty = flagOmitEmpty
+	ArgReader := strings.NewReader(os.Args[1])
+	if output, err := generate(ArgReader, os.Args[2], cfg); err != nil {
 		fmt.Fprintln(os.Stderr, "error parsing", err)
 		os.Exit(1)
 	} else {
 		fmt.Print(string(output))
 	}
-}
-
-// Return true if os.Stdin appears to be interactive
-func isInteractive() bool {
-	fileInfo, err := os.Stdin.Stat()
-	if err != nil {
-		return false
-	}
-	return fileInfo.Mode()&(os.ModeCharDevice|os.ModeCharDevice) != 0
 }
